@@ -1,45 +1,80 @@
 <?php
 
-class NodeSCLL {
+class NodeDLLC {
     public $data;
+    public $prev;
     public $next;
 
     public function __construct($data) {
         $this->data = $data;
+        $this->prev = null;
         $this->next = null;
     }
 }
 
-class SingleCircularLinkedList {
+class DoubleCircularLinkedListHeadOnly {
     private $head = null;
 
     public function insert($data) {
-        $newNode = new NodeSCLL($data);
+        $newNode = new NodeDLLC($data);
+
         if ($this->head === null) {
+            // Kasus list kosong
+            $newNode->next = $newNode;
+            $newNode->prev = $newNode;
             $this->head = $newNode;
-            $newNode->next = $this->head;
         } else {
-            $temp = $this->head;
-            while ($temp->next !== $this->head) {
-                $temp = $temp->next;
-            }
-            $temp->next = $newNode;
+            // Sisipkan sebelum head (di akhir list)
+            $tail = $this->head->prev;
+
             $newNode->next = $this->head;
+            $newNode->prev = $tail;
+
+            $tail->next = $newNode;
+            $this->head->prev = $newNode;
         }
     }
 
-    public function display() {
+    public function displayForward() {
         if ($this->head === null) {
             echo "List kosong\n";
-            return false;
+            return;
         }
 
-        $temp = $this->head;
+        $current = $this->head;
         do {
-            echo $temp->data . " ";
-            $temp = $temp->next;
-        } while ($temp !== $this->head);
+            echo $current->data . " ";
+            $current = $current->next;
+        } while ($current !== $this->head);
+
         echo "\n";
-        return true;
+    }
+
+    public function displayBackward() {
+        if ($this->head === null) {
+            echo "List kosong\n";
+            return;
+        }
+
+        $current = $this->head->prev; // start from tail
+        do {
+            echo $current->data . " ";
+            $current = $current->prev;
+        } while ($current !== $this->head->prev);
+
+        echo "\n";
+    }
+
+
+    public function moveHeadNext() {
+        if ($this->head !== null) {
+            $this->head = $this->head->next;
+        }
+    }
+
+    public function moveHeadPrev() {
+        if ($this->head !== null) {
+            $this->head = $this->head->prev;
+        }
     }
 }
