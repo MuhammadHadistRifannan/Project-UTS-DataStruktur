@@ -13,7 +13,7 @@ class NodeDLLC {
 }
 
 class DoubleCircularLinkedListHeadOnly {
-    private $head = null;
+    public $head = null;
 
     public function insert($data) {
         $newNode = new NodeDLLC($data);
@@ -77,4 +77,20 @@ class DoubleCircularLinkedListHeadOnly {
             $this->head = $this->head->prev;
         }
     }
+
+        public function toArray() {
+    $result = [];
+
+    if ($this->head == null) {
+        return $result;
+    }
+
+    $current = $this->head;
+    do {
+        $result[] = $current->data;
+        $current = $current->next;
+    } while ($current !== $this->head);
+
+    return $result;
+}
 }

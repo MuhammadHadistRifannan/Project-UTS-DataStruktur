@@ -62,4 +62,21 @@ class DoubleCircularLinkedList {
         echo "\n";
         return true;
     }
+
+    public function toArray() {
+    $result = [];
+
+    if ($this->head == null) {
+        return $result;
+    }
+
+    $current = $this->head;
+    do {
+        $result[] = $current->data;
+        $current = $current->next;
+    } while ($current !== $this->head);
+
+    return $result;
+}
+
 }
