@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playlist Highlight Video</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🎬 Playlist Highlight Video</h1>
+
+  <video id="videoPlayer" controls autoplay></video>
+
+  <div class="button-group">
+    <button onclick="prevVideo()">◀ Video Sebelumnya</button>
+    <button onclick="nextVideo()">Video Selanjutnya ▶</button>
+  </div>
+
+  <script>
+    const playlist = [
+      'video1.mp4',
+      'video2.mp4',
+      'video3.mp4'
+    ];
+    let currentIndex = 0;
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    function playVideo(index) {
+      videoPlayer.classList.remove('fade');
+      void videoPlayer.offsetWidth; // Reset animasi
+      videoPlayer.classList.add('fade');
+      videoPlayer.src = playlist[index];
+      videoPlayer.play();
+    }
+
+    function nextVideo() {
+      currentIndex = (currentIndex + 1) % playlist.length;
+      playVideo(currentIndex);
+    }
+
+    function prevVideo() {
+      currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+      playVideo(currentIndex);
+    }
+
+    videoPlayer.addEventListener('ended', nextVideo);
+    playVideo(currentIndex);
+  </script>
+</body>
+</html>

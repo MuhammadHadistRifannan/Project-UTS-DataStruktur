@@ -1,0 +1,87 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: fadeInSection 0.6s ease-in-out;
+}
+
+@keyframes fadeInSection {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-item {
+  font-size: 20px;
+  margin: 10px;
+  display: none;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.menu-item.active {
+  display: block;
+  font-weight: bold;
+  color: #007bff;
+  opacity: 1;
+}
+
+.menu-item.fade-in {
+  animation: fadeInMenu 0.3s ease forwards;
+}
+
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+video {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: fadeInVideo 0.6s ease;
+}
+
+@keyframes fadeInVideo {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.button:active {
+  transform: scale(0.95);
+}

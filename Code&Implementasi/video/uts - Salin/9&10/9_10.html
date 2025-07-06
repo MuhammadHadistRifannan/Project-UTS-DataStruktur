@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu Admin & Playlist Video</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+ 
+  <section>
+    <h2>Navigasi Menu Admin (Double Linked List Circular)</h2>
+    <p>Menu untuk panitia turnamen yang bisa dinavigasi searah jarum jam atau berlawanan.</p>
+    
+    <div class="menu">
+      <div class="menu-item active">Dashboard</div>
+      <div class="menu-item">Jadwal Pertandingan</div>
+      <div class="menu-item">Manajemen Tim</div>
+      <div class="menu-item">Pengaturan Akun</div>
+      <div class="menu-item">Keluar</div>
+    </div>
+    <div class="button-group">
+      <button onclick="prevMenu()">◀ Sebelumnya</button>
+      <button onclick="nextMenu()">Selanjutnya ▶</button>
+    </div>
+  </section>
+
+  
+  <section>
+    <h2>📺 Playlist Highlight Video (Double Linked List Circular)</h2>
+    <p>Video highlight pertandingan yang berputar otomatis ke video berikutnya/sebelumnya.</p>
+    
+    <video id="videoPlayer" controls autoplay></video>
+    <div class="button-group">
+      <button onclick="prevVideo()">◀ Video Sebelumnya</button>
+      <button onclick="nextVideo()">Video Selanjutnya ▶</button>
+    </div>
+  </section>
+
+  
+  <script>
+    
+    const menuItems = document.querySelectorAll('.menu-item');
+    let currentMenu = 0;
+
+    function updateMenu() {
+      menuItems.forEach((item, i) => {
+        item.classList.toggle('active', i === currentMenu);
+        item.classList.remove('fade-in');
+        if (i === currentMenu) {
+          void item.offsetWidth; // reset animation
+          item.classList.add('fade-in');
+        }
+      });
+    }
+
+    function nextMenu() {
+      currentMenu = (currentMenu + 1) % menuItems.length;
+      updateMenu();
+    }
+
+    function prevMenu() {
+      currentMenu = (currentMenu - 1 + menuItems.length) % menuItems.length;
+      updateMenu();
+    }
+
+    
+    const playlist = [
+      'video1.mp4',
+      'video2.mp4',
+      'video3.mp4'
+    ];
+    let currentVideo = 0;
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    function playVideo(index) {
+      videoPlayer.src = playlist[index];
+      videoPlayer.play();
+    }
+
+    function nextVideo() {
+      currentVideo = (currentVideo + 1) % playlist.length;
+      playVideo(currentVideo);
+    }
+
+    function prevVideo() {
+      currentVideo = (currentVideo - 1 + playlist.length) % playlist.length;
+      playVideo(currentVideo);
+    }
+
+    videoPlayer.addEventListener('ended', nextVideo);
+    playVideo(currentVideo);
+  </script>
+</body>
+</html>

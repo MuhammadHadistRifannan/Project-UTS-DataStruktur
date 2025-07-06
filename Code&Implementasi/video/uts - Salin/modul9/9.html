@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navigasi Menu Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Navigasi Menu Admin (Circular Menu)</h1>
+  <div class="menu">
+    <div class="menu-item active">Dashboard</div>
+    <div class="menu-item">Jadwal Pertandingan</div>
+    <div class="menu-item">Manajemen Tim</div>
+    <div class="menu-item">Pengaturan Akun</div>
+    <div class="menu-item">Keluar</div>
+  </div>
+  <div class="button-group">
+    <button onclick="prevMenu()">◀ Sebelumnya</button>
+    <button onclick="nextMenu()">Selanjutnya ▶</button>
+  </div>
+
+  <script>
+    const items = document.querySelectorAll('.menu-item');
+    let current = 0;
+
+    function updateMenu() {
+      items.forEach((item, i) => {
+        item.classList.remove('fade');
+        item.classList.toggle('active', i === current);
+        if (i === current) {
+          void item.offsetWidth; // reset animation
+          item.classList.add('fade');
+        }
+      });
+    }
+
+    function nextMenu() {
+      current = (current + 1) % items.length;
+      updateMenu();
+    }
+
+    function prevMenu() {
+      current = (current - 1 + items.length) % items.length;
+      updateMenu();
+    }
+  </script>
+</body>
+</html>
